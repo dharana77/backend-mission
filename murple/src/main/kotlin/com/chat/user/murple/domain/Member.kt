@@ -13,5 +13,9 @@ data class Member (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val name: String,
-    val gender: Gender = Gender.MALE
-)
+    val age: Int? = null,
+    val email: String? = null,
+    val gender: Gender? = null,
+    val phoneInfo: MemberPhone? = null,
+    val address: MemberAddress? = null,
+    )
