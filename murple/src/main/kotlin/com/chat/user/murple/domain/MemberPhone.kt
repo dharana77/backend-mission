@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
 @Entity
-data class MemberPhone (
+class MemberPhone (
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     val id: Long? = null,

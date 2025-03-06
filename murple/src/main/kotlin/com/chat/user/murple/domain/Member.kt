@@ -1,6 +1,6 @@
 package com.chat.user.murple.domain
 
-import com.chat.user.murple.dto.UpdateMemberRequestDto
+import com.chat.user.murple.dto.member.InUpdateMember
 import com.chat.user.murple.enums.Gender
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor
 @Entity
 @Table(name = "members")
 @AllArgsConstructor
-data class Member (
+class Member (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -28,7 +28,7 @@ data class Member (
     val address: String? = null,
 
 ) : BaseEntity() {
-    fun update(updateRequest: UpdateMemberRequestDto) {
+    fun update(updateRequest: InUpdateMember) {
         //TODO
     }
 }

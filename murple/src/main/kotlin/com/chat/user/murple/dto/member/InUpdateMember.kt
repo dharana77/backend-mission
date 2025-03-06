@@ -1,10 +1,10 @@
-package com.chat.user.murple.dto
+package com.chat.user.murple.dto.member
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-data class UpdateMemberRequestDto (
+data class InUpdateMember (
     @field:NotBlank(message = "이름은 필수 입력 값입니다.")
     @field:Size(min = 2, max = 30, message = "이름은 2자 이상 30자 이하로 입력해야 합니다.")
     val name: String,
