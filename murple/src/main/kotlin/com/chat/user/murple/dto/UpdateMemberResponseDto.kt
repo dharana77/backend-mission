@@ -2,7 +2,7 @@ package com.chat.user.murple.dto
 
 class UpdateMemberResponseDto {
 
-    fun of(UpdateMemberRequestDto: UpdateMemberRequestDto):
+    fun of(updateMemberRequestDto: UpdateMemberRequestDto):
         UpdateMemberResponseDto {
         return UpdateMemberResponseDto()
     }

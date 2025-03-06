@@ -1,4 +1,14 @@
 package com.chat.user.murple.domain
 
-class MemberPhone {
-}
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+
+@Entity
+data class MemberPhone (
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    val id: Long? = null,
+    val number: String? = null,
+    val countryCode: String? = null
+)
