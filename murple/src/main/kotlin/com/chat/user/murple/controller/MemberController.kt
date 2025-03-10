@@ -39,7 +39,7 @@ class MemberController (
         return ResponseEntity.ok(member)
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{memberId}")
     fun deleteMember(@PathVariable memberId: Long): ResponseEntity<Long> {
         memberService.deleteMember(memberId)
         return ResponseEntity.ok(memberId)

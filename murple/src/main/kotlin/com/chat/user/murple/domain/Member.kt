@@ -21,18 +21,25 @@ class Member (
     val id: Long? = null,
     @Column(nullable = false, length = 1024)
     var name: String,
-    val age: Int? = null,
+    var age: Int? = null,
     @Column(length = 1024)
     var email: String? = null,
-    val gender: Gender? = null,
-    val number: String? = null,
-    val isNumberVerified: Boolean? = false,
-    val countryCode: String? = null,
+    var gender: Gender? = null,
+    var number: String? = null,
+    var isNumberVerified: Boolean? = false,
+    var countryCode: String? = null,
     @Column(nullable = false, length = 1024)
-    val address: String? = null,
+    var address: String? = null,
 
 ) : BaseEntity() {
     fun update(updateRequest: InUpdateMember) {
-        //TODO
+        name = updateRequest.name
+        age = updateRequest.age
+        email = updateRequest.email
+        gender = Gender.valueOf(updateRequest.gender)
+        number = updateRequest.number
+        isNumberVerified = updateRequest.isVerified
+        countryCode = updateRequest.countryCode
+        address = updateRequest.address
     }
 }

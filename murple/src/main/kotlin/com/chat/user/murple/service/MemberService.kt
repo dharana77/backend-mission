@@ -4,8 +4,10 @@ import com.chat.user.murple.domain.Member
 import com.chat.user.murple.dto.member.InCreateMember
 import com.chat.user.murple.dto.member.InUpdateMember
 import com.chat.user.murple.repository.MemberRepository
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
+@Transactional
 @Service
 class MemberService(
     private val memberRepository: MemberRepository,
@@ -32,9 +34,7 @@ class MemberService(
 
     fun updateMember(updateRequest: InUpdateMember): Member? {
         val member = memberRepository.findMemberById(updateRequest.id)
-
-        member?.name = updateRequest.name
-        member?.email = updateRequest.email
+        member?.update(updateRequest)
 
         return member
     }
