@@ -4,6 +4,7 @@ import com.chat.user.murple.enums.Gender
 
 data class InCreateMember (
     val name: String,
+    val age: Int?,
     val email: String,
     val gender: Gender?,
     val phoneNumber: String?,
