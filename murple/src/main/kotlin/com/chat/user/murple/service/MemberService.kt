@@ -1,6 +1,7 @@
 package com.chat.user.murple.service
 
 import com.chat.user.murple.domain.Member
+import com.chat.user.murple.domain.MemberAddress
 import com.chat.user.murple.domain.MemberPhone
 import com.chat.user.murple.dto.member.InCreateMember
 import com.chat.user.murple.dto.member.InUpdateMember
@@ -33,7 +34,12 @@ class MemberService(
                     countryCode = createRequest.countryCode
                 )
             ),
-            createRequest.address
+            mutableListOf(
+                MemberAddress(
+                    address = createRequest.address,
+                    type= createRequest.addressType
+                )
+            )
         )
 
         return memberRepository.save(member)

@@ -10,5 +10,6 @@ data class InCreateMember (
     val phoneNumber: String?,
     val phoneType: String?,
     val countryCode: String?,
-    val address: String?
+    val address: String?,
+    val addressType: String?
 )

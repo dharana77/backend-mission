@@ -35,11 +35,11 @@ class Member (
 
     var gender: Gender? = null,
 
-    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var phones: MutableList<MemberPhone> = mutableListOf(),
 
-    @Column(nullable = false, length = 1024)
-    var address: String? = null,
+    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    val addresses: MutableList<MemberAddress> = mutableListOf()
 
 ) : BaseEntity() {
     fun update(updateRequest: InUpdateMember) {
@@ -55,10 +55,20 @@ class Member (
         )
         phones.add(memberPhone)
 
-        address = updateRequest.address
+        val memberAddress = MemberAddress(
+            address = updateRequest.address,
+            type = updateRequest.addressType,
+        )
+        addresses.add(memberAddress)
     }
 
     fun addPhone(phone: MemberPhone) {
         phones.add(phone)
+    }
+
+    fun addAddress(address: MemberAddress) {
+        if (addresses.size >= 8) throw IllegalStateException("주소는 최대 8개까지만 추가할 수 있습니다.")
+        addresses.add(address)
+        address.member = this
     }
 }

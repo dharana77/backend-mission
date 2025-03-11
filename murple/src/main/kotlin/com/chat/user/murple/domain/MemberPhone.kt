@@ -19,7 +19,7 @@ data class MemberPhone (
     @JoinColumn(name = "member_id", nullable = false)
     var member: Member? = null,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1024)
     var number: String? = null,
 
     var type: String? = null,

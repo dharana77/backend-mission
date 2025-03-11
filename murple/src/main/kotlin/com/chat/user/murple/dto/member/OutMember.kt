@@ -10,7 +10,7 @@ data class OutMember (
     val email: String?,
     val gender: Gender?,
     val phones: List<String?>,
-    val address: String?
+    val address: List<String?>
 ){
     companion object {
         fun fromMember(member: Member): OutMember {
@@ -20,7 +20,7 @@ data class OutMember (
                 email = member.email,
                 gender = member.gender,
                 phones = member.phones.map { it.number },
-                address = member.address,
+                address = member.addresses.map{ it.address},
             )
         }
     }
