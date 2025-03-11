@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.*
 
 @ExtendWith(MockKExtension::class)
 @SpringBootTest
@@ -47,4 +48,24 @@ class MemberServiceTest {
 
         verify { memberRepository.save(any()) }
     }
+
+    @Test
+    fun `id로 멤버를 조회할 때 정상적으로 반환`() {
+        // Given
+        val memberId = 1L
+        val member = Member(id = memberId, name = "John Doe", email = "john@example.com")
+
+        // Mocking: findMemberById 호출 시 member 반환
+        every { memberRepository.findMemberById(memberId) } returns member
+
+        // When
+        val foundMember = memberService.getMember(memberId)
+
+        // Then
+        assertNotNull(foundMember)
+        assertEquals(memberId, foundMember?.id)
+        assertEquals("John Doe", foundMember?.name)
+    }
+
+
 }
