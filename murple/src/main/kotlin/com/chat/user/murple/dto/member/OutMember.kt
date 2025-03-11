@@ -1,7 +1,6 @@
 package com.chat.user.murple.dto.member
 
 import com.chat.user.murple.domain.Member
-import com.chat.user.murple.domain.MemberPhone
 import com.chat.user.murple.enums.Gender
 
 data class OutMember (

@@ -5,6 +5,8 @@ import com.chat.user.murple.domain.MemberAddress
 import com.chat.user.murple.domain.MemberPhone
 import com.chat.user.murple.dto.member.InCreateMember
 import com.chat.user.murple.dto.member.InUpdateMember
+import com.chat.user.murple.repository.MemberAddressRepository
+import com.chat.user.murple.repository.MemberPhoneRepository
 import com.chat.user.murple.repository.MemberRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -13,33 +15,22 @@ import org.springframework.stereotype.Service
 @Service
 class MemberService(
     private val memberRepository: MemberRepository,
+    private val memberPhoneRepository: MemberPhoneRepository,
+    private val memberAddressRepository: MemberAddressRepository,
 ) {
     fun getMember(id: Long): Member? {
         return memberRepository.findMemberById(id);
     }
 
     fun createMember(createRequest: InCreateMember): Member? {
-
         val member = Member(
             null,
-            createRequest.name,
-            createRequest.age,
-            createRequest.email,
-            createRequest.gender,
-            mutableListOf(
-                MemberPhone(
-                    number = createRequest.phoneNumber,
-                    type = createRequest.phoneType,
-                    isNumberVerified = false,
-                    countryCode = createRequest.countryCode
-                )
-            ),
-            mutableListOf(
-                MemberAddress(
-                    address = createRequest.address,
-                    type= createRequest.addressType
-                )
-            )
+            name=createRequest.name,
+            age=createRequest.age,
+            email=createRequest.email,
+            gender=createRequest.gender,
+            phones =  mutableListOf(),
+            addresses = mutableListOf()
         )
 
         return memberRepository.save(member)
