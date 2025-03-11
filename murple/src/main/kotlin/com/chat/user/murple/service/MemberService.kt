@@ -17,7 +17,6 @@ class MemberService(
     }
 
     fun createMember(createRequest: InCreateMember): Member? {
-        memberRepository
         val member = Member(
             null,
             createRequest.name,
