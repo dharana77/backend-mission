@@ -28,5 +28,28 @@ data class MemberPhone (
 
     var countryCode: String? = null,
 ): BaseEntity() {
+
+    fun validateAndSetCountryCode() {
+        if (countryCode.isNullOrBlank()) {
+            countryCode = extractCountryCode(number)
+        }
+
+        // ISO 3166-1 alpha-2 표준 체크 (대문자, 2자리)
+        require(countryCode == null || countryCode!!.matches(Regex("^[A-Z]{2}$"))) {
+            "Invalid country code: $countryCode"
+        }
+    }
+
+    private fun extractCountryCode(phoneNumber: String?): String? {
+        if (phoneNumber.isNullOrBlank()) return null
+
+        return when {
+            phoneNumber.startsWith("+82") -> "KR"
+            phoneNumber.startsWith("+1") -> "US"
+            phoneNumber.startsWith("+81") -> "JP"
+            phoneNumber.startsWith("+86") -> "CN"
+            else -> null
+        }
+    }
 }
 

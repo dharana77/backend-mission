@@ -61,6 +61,8 @@ class Member (
     }
 
     fun addPhone(phone: MemberPhone) {
+        if (phones.size >= 8) throw IllegalStateException("전화번호는 최대 8개까지만 추가할 수 있습니다.")
+        phones.add(phone)
         phones.add(phone)
     }
 
