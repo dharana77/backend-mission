@@ -4,6 +4,8 @@ import com.chat.user.murple.domain.Member
 import com.chat.user.murple.dto.member.InCreateMember
 import com.chat.user.murple.dto.member.InUpdateMember
 import com.chat.user.murple.enums.Gender
+import com.chat.user.murple.repository.MemberAddressRepository
+import com.chat.user.murple.repository.MemberPhoneRepository
 import com.chat.user.murple.repository.MemberRepository
 import com.chat.user.murple.service.MemberService
 import io.mockk.Runs
@@ -25,10 +27,12 @@ class MemberServiceTest {
 
     private lateinit var memberService: MemberService
     private val memberRepository: MemberRepository = mockk<MemberRepository>()
+    private val memberPhoneRepository: MemberPhoneRepository = mockk<MemberPhoneRepository>()
+    private val memberAddressRepository: MemberAddressRepository = mockk<MemberAddressRepository>()
 
     @BeforeEach
     fun setUp() {
-        memberService = MemberService(memberRepository)
+        memberService = MemberService(memberRepository, memberPhoneRepository, memberAddressRepository)
     }
 
     @Test
