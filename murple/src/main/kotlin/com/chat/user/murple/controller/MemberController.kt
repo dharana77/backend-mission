@@ -21,20 +21,19 @@ class MemberController (
     private val memberService: MemberService,
 ){
 
-
     @GetMapping("/info/{memberId}")
     fun profile(@PathVariable memberId: Long): OutMember? {
         return memberService.getMember(memberId)?.let { OutMember.fromMember(it) }
     }
 
     @PostMapping("/create")
-    fun createMember(@RequestBody createRequest: InCreateMember): ResponseEntity<Member>{
+    fun createMember(@RequestBody createRequest: InCreateMember): ResponseEntity<Member> {
         val member = memberService.createMember(createRequest)
         return ResponseEntity.ok(member)
     }
 
     @PutMapping("/update")
-    fun updateMember(@RequestBody updateRequest: InUpdateMember): ResponseEntity<Member>{
+    fun updateMember(@RequestBody updateRequest: InUpdateMember): ResponseEntity<Member> {
         val member = memberService.updateMember(updateRequest)
         return ResponseEntity.ok(member)
     }
