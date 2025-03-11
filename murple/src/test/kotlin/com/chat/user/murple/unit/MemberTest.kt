@@ -33,7 +33,7 @@ class MemberTest {
         val violations = validator.validate(member)
 
         assertEquals(1, violations.size)
-        assertEquals("이름은 비워둘 수 없습니다.", violations.first().message)
+        assertEquals("이름은 최소 1글자에서 1024글자 사이여야 합니다.", violations.first().message)
     }
 
     @Test
@@ -43,6 +43,6 @@ class MemberTest {
         val violations = validator.validate(member)
 
         assertEquals(1, violations.size)
-        assertEquals("이메일 형식이 올바르지 않습니다.", violations.first().message)
+        assertEquals("올바르지 않은 이메일 형식입니다.", violations.first().message)
     }
 }
