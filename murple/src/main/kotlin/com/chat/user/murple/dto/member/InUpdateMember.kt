@@ -25,5 +25,7 @@ data class InUpdateMember (
 
     val countryCode: String?,
 
+    val phoneType: String?,
+
     val address: String?
 )

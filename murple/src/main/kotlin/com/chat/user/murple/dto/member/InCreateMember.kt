@@ -8,5 +8,7 @@ data class InCreateMember (
     val email: String,
     val gender: Gender?,
     val phoneNumber: String?,
+    val phoneType: String?,
+    val countryCode: String?,
     val address: String?
 )

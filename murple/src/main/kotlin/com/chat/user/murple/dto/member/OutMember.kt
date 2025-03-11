@@ -1,6 +1,7 @@
 package com.chat.user.murple.dto.member
 
 import com.chat.user.murple.domain.Member
+import com.chat.user.murple.domain.MemberPhone
 import com.chat.user.murple.enums.Gender
 
 data class OutMember (
@@ -8,9 +9,7 @@ data class OutMember (
     val name: String,
     val email: String?,
     val gender: Gender?,
-    val number: String?,
-    val isVerified: Boolean?,
-    val countryCode: String?,
+    val phones: List<String?>,
     val address: String?
 ){
     companion object {
@@ -20,10 +19,8 @@ data class OutMember (
                 name = member.name,
                 email = member.email,
                 gender = member.gender,
-                number = member.number,
-                isVerified = member.isNumberVerified,
-                countryCode = member.countryCode,
-                address = member.address
+                phones = member.phones.map { it.number },
+                address = member.address,
             )
         }
     }

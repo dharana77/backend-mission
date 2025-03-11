@@ -41,7 +41,7 @@ class MemberServiceTest {
         val savedMember = memberService.createMember(
             InCreateMember(
                 "John Doe", 17, "john@example.com",
-                null, null, null)
+                null, null, null, null, null)
         )
 
         // Then
@@ -100,7 +100,7 @@ class MemberServiceTest {
         val result = memberService.updateMember(InUpdateMember(
             memberId, "Jane Doe", 20,"jane@example.com",
             "MALE", "010-1234-1234", true,
-            "KR", null
+            "KR", null,null
         ))
 
         // Then
@@ -108,9 +108,6 @@ class MemberServiceTest {
         assertEquals("Jane Doe", result?.name)
         assertEquals("jane@example.com", result?.email)
         assertEquals(Gender.MALE, result?.gender)
-        assertEquals("010-1234-1234", result?.number)
-        assertEquals(true, result?.isNumberVerified)
-        assertEquals("KR", result?.countryCode)
         assertEquals(null, result?.address)
     }
 }

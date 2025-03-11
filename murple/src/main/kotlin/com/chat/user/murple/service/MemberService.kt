@@ -1,6 +1,7 @@
 package com.chat.user.murple.service
 
 import com.chat.user.murple.domain.Member
+import com.chat.user.murple.domain.MemberPhone
 import com.chat.user.murple.dto.member.InCreateMember
 import com.chat.user.murple.dto.member.InUpdateMember
 import com.chat.user.murple.repository.MemberRepository
@@ -17,16 +18,23 @@ class MemberService(
     }
 
     fun createMember(createRequest: InCreateMember): Member? {
+
         val member = Member(
             null,
             createRequest.name,
             createRequest.age,
             createRequest.email,
             createRequest.gender,
-            createRequest.phoneNumber,
-            false,
-            "KR",
-            createRequest.address)
+            mutableListOf(
+                MemberPhone(
+                    number = createRequest.phoneNumber,
+                    type = createRequest.phoneType,
+                    isNumberVerified = false,
+                    countryCode = createRequest.countryCode
+                )
+            ),
+            createRequest.address
+        )
 
         return memberRepository.save(member)
     }
