@@ -2,19 +2,22 @@ package com.chat.user.murple.unit
 
 import com.chat.user.murple.domain.Member
 import com.chat.user.murple.dto.member.InCreateMember
+import com.chat.user.murple.dto.member.InUpdateMember
+import com.chat.user.murple.enums.Gender
 import com.chat.user.murple.repository.MemberRepository
 import com.chat.user.murple.service.MemberService
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.junit5.MockKExtension
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
 import org.springframework.boot.test.context.SpringBootTest
-import java.util.*
 
 @ExtendWith(MockKExtension::class)
 @SpringBootTest
@@ -67,5 +70,47 @@ class MemberServiceTest {
         assertEquals("John Doe", foundMember?.name)
     }
 
+    @Test
+    fun `id로 멤버를 삭제하면 해당 멤버 아이디로 조회시 deleteById 호출 확인`() {
+        // Given
+        val memberId = 1L
 
+        // Mocking: deleteById()가 호출될 수 있도록 설정
+        every { memberRepository.deleteById(memberId) } just Runs
+
+        // When
+        memberService.deleteMember(memberId)
+
+        // Then
+        verify { memberRepository.deleteById(memberId) }  // 메서드가 호출되었는지 검증
+    }
+
+    @Test
+    fun `멤버 정보 수정 시 정상적으로 반영됨`() {
+        // Given
+        val memberId = 1L
+        val originalMember = Member(id = memberId, name = "John Doe", email = "john@example.com")
+        val updatedMember = Member(id = memberId, name = "Jane Doe", email = "jane@example.com")
+
+        // Mocking: findById()와 save() 동작 설정
+        every { memberRepository.findMemberById(memberId) } returns originalMember
+        every { memberRepository.save(any()) } answers { updatedMember }  // 업데이트된 객체 반환
+
+        // When
+        val result = memberService.updateMember(InUpdateMember(
+            memberId, "Jane Doe", 20,"jane@example.com",
+            "MALE", "010-1234-1234", true,
+            "KR", null
+        ))
+
+        // Then
+        assertNotNull(result)
+        assertEquals("Jane Doe", result?.name)
+        assertEquals("jane@example.com", result?.email)
+        assertEquals(Gender.MALE, result?.gender)
+        assertEquals("010-1234-1234", result?.number)
+        assertEquals(true, result?.isNumberVerified)
+        assertEquals("KR", result?.countryCode)
+        assertEquals(null, result?.address)
+    }
 }

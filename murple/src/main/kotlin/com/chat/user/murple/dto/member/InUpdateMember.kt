@@ -17,10 +17,6 @@ data class InUpdateMember (
     @field:Email(message = "유효한 이메일 주소를 입력해야 합니다.")
     val email: String,
 
-    @field:NotBlank(message = "비밀번호는 필수 입력 값입니다.")
-    @field:Size(min = 8, max = 20, message = "비밀번호는 8자 이상 20자 이하로 입력해야 합니다.")
-    val password: String,
-
     val gender: String,
 
     val number:String,
