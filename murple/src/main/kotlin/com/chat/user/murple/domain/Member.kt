@@ -47,19 +47,17 @@ class Member (
         age = updateRequest.age
         email = updateRequest.email
         gender = Gender.valueOf(updateRequest.gender)
-
-        val memberPhone = MemberPhone(
+        phones.add(
+            MemberPhone(
             number=updateRequest.number,
             isNumberVerified = updateRequest.isVerified,
             countryCode = updateRequest.countryCode
-        )
-        phones.add(memberPhone)
-
-        val memberAddress = MemberAddress(
+        ))
+        addresses.add(
+            MemberAddress(
             address = updateRequest.address,
             type = updateRequest.addressType,
-        )
-        addresses.add(memberAddress)
+        ))
     }
 
     fun addPhone(phone: MemberPhone) {
@@ -67,7 +65,7 @@ class Member (
     }
 
     fun addAddress(address: MemberAddress) {
-        if (addresses.size >= 8) throw IllegalStateException("주소는 최대 8개까지만 추가할 수 있습니다.")
+        if (addresses.size > 8) throw IllegalStateException("주소는 최대 8개까지만 추가할 수 있습니다.")
         addresses.add(address)
         address.member = this
     }
